@@ -10,8 +10,14 @@ import (
 )
 
 func init(){
-	sqlconn, _ := beego.AppConfig.String("sqlconn")
-	orm.RegisterDataBase("default", "postgres", sqlconn)
+	databaseName, _ := beego.AppConfig.String("databaseName")
+	databasePassword, _ := beego.AppConfig.String("databasePassword")
+	databaseHost, _ := beego.AppConfig.String("databaseHost")
+	databaseUserName, _ := beego.AppConfig.String("databaseUserName")
+	databaseUrl := "postgres://"+databaseUserName+":"+databasePassword+"@"+databaseHost+"/"+databaseName+"?sslmode=disable&search_path=public"+""
+	orm.RegisterDataBase("default", "postgres", databaseUrl)
+
+
 }
 
 func main() {
